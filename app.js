@@ -5,6 +5,8 @@ const bodyParser = require("body-parser");
 app.set("views", `${__dirname}/views`);
 app.set("view engine", "pug");
 app.use(bodyParser.urlencoded({ extended: true }));
+// Using our middleware
+app.use(myFakeMiddleware);
 
 app.get("/", (req, res, next) => {
   res.render("index");
@@ -47,6 +49,18 @@ app.post("/login", (req, res) => {
 
   //res.send(`Email: ${email}, Password: ${password}`);
 });
+
+// Middleware route
+app.get("/test", (req, res) => {
+  let mySecret = req.secretValue;
+  res.send(mySecret);
+});
+
+function myFakeMiddleware(req, _, next) {
+  console.log("myFakeMiddleware was called!");
+  req.secretValue = "putoelquelolea";
+  next();
+}
 
 app.listen(3000, () => {
   console.log("Congrats! Server running");
