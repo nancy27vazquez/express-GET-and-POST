@@ -1,0 +1,11 @@
+extends index
+block content
+
+  form(action="/login" method="POST")
+    label(for="email") Email:
+    input(type="text" id="email" name="email")
+
+    label(for="password") Password:
+    input(type="password" id="password" name="password")
+
+    button(type="submit") Login Bitch
